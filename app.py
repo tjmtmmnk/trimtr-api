@@ -7,8 +7,7 @@ app = Flask(__name__)
 
 @app.route('/trim', methods=["POST"])
 def trim_post():
-    trim(request.get_data(as_text=True))
-    return request.get_data()
+    return trim(request.get_data(as_text=True))
 
 
 if __name__ == '__main__':
