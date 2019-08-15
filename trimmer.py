@@ -2,7 +2,7 @@ from nltk.tokenize import sent_tokenize
 from typing import List
 
 
-def trim(raw_body):
+def trim(raw_body) -> str:
     token_list = _sharp_end_of_sentence(raw_body)
     ret = ""
     for t in token_list:
