@@ -21,7 +21,7 @@ def trim(raw_body: str) -> str:
 
 
 def _create_new_line_flag(body: str) -> str:
-    return re.sub(r'(\n{2,})|((\r\n){2,})', "[newline]", body)
+    return re.sub(r'(\n|\r\n){2,}', "[newline]", body)
 
 
 def _shape_new_line(sentence: str) -> str:
@@ -49,11 +49,11 @@ def _shape_white_space(sentence: str) -> str:
 
 
 def _new_line_to_white_space(sentence: str) -> str:
-    return sentence.replace("\n", " ")
+    return re.sub(r'((\n|\r\n)+)|( +(\n|\r\n)+)|((\n|\r\n)+ +)', ' ', sentence)
 
 
 def _create_white_space_flag(body: str) -> str:
-    return re.sub(r'( {2,})|((\n|\r\n) {1,})', '[whitespace]', body)
+    return re.sub(r'( {2,})|((\n|\r\n) +)', '[whitespace]', body)
 
 
 def _split_body_to_sentences(body: str) -> List[str]:
