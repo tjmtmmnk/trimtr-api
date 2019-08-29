@@ -7,6 +7,7 @@ def trim(raw_body: str) -> str:
     # sent_tokenizeにかけると改行や空白が消えてしまうので先にフラグを立てておいて後で処理する
     flagged_body = _create_new_line_flag(raw_body)
     flagged_body = _create_white_space_flag(flagged_body)
+    flagged_body = _create_colon_flag(flagged_body)
 
     sentences = _split_body_to_sentences(flagged_body)
 
@@ -21,15 +22,23 @@ def trim(raw_body: str) -> str:
 
 
 def _create_new_line_flag(body: str) -> str:
-    return re.sub(r'(\n|\r\n){2,}', "[newline]", body)
+    return re.sub(r'(\n|\r\n){2,}', "[NL]", body)
+
+
+def _create_white_space_flag(body: str) -> str:
+    return re.sub(r'( {2,})|((\n|\r\n) +)', '[WS]', body)
+
+
+def _create_colon_flag(body: str) -> str:
+    return re.sub(r'\w+:( |\n|\r\n)', ':[NL]', body)
 
 
 def _shape_new_line(sentence: str) -> str:
-    # [newline] を \n に置換する前に \n を空白に変換する
+    # [NL] を \n に置換する前に \n を空白に変換する
     shaped_sentence = _new_line_to_white_space(sentence)
 
-    if re.search(r"\[newline\]", sentence):
-        shaped_sentence = shaped_sentence.replace("[newline]", "\n\n")
+    if re.search(r"\[NL\]", sentence):
+        shaped_sentence = shaped_sentence.replace("[NL]", "\n\n")
     else:
         shaped_sentence = shaped_sentence + "\n"
 
@@ -40,20 +49,16 @@ def _shape_white_space(sentence: str) -> str:
     shaped_sentence = sentence
 
     # 先頭の空白は消す
-    if re.match(r'^\[whitespace\]', sentence):
-        shaped_sentence = re.sub(r'^\[whitespace\]', '', sentence)
+    if re.match(r'^\[WS\]', sentence):
+        shaped_sentence = re.sub(r'^\[WS\]', '', sentence)
 
-    shaped_sentence = shaped_sentence.replace("[whitespace]", " ")
+    shaped_sentence = shaped_sentence.replace("[WS]", " ")
 
     return shaped_sentence
 
 
 def _new_line_to_white_space(sentence: str) -> str:
     return re.sub(r'((\n|\r\n)+)|( +(\n|\r\n)+)|((\n|\r\n)+ +)', ' ', sentence)
-
-
-def _create_white_space_flag(body: str) -> str:
-    return re.sub(r'( {2,})|((\n|\r\n) +)', '[whitespace]', body)
 
 
 def _split_body_to_sentences(body: str) -> List[str]:
