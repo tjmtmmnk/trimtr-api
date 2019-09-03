@@ -1,6 +1,6 @@
-from nltk.tokenize import sent_tokenize
 from typing import List
 import re
+from nltk.tokenize.punkt import PunktSentenceTokenizer, PunktParameters
 
 
 def trim(raw_body: str) -> str:
@@ -35,8 +35,8 @@ def _create_shaped_body(sentences: List[str]) -> str:
 
 
 def _format_shaped_body(shaped_body: str) -> str:
-    formated_body = _format_two_more_lines(shaped_body)
-    return formated_body
+    formatted_body = _format_two_more_lines(shaped_body)
+    return formatted_body
 
 
 def _create_sentence_block_flag(body: str) -> str:
@@ -83,7 +83,10 @@ def _new_line_to_white_space(sentence: str) -> str:
 
 
 def _split_body_to_sentences(body: str) -> List[str]:
-    return sent_tokenize(body)
+    punkt_param = PunktParameters()
+    punkt_param.abbrev_types = set(['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g'])
+    sent_tokenize = PunktSentenceTokenizer(punkt_param)
+    return sent_tokenize.tokenize(body)
 
 
 # 文末の改行1個と[SB]の改行2個などで改行が3個以上発生する可能性があるのでその場合は2個に抑え込む
