@@ -5,12 +5,25 @@ import re
 
 def trim(raw_body: str) -> str:
     # sent_tokenizeにかけると改行や空白が消えてしまうので先にフラグを立てておいて後で処理する
-    flagged_body = _create_sentence_block_flag(raw_body)
-    flagged_body = _create_white_space_flag(flagged_body)
-    flagged_body = _create_colon_flag(flagged_body)
+    flagged_body = _create_flag(raw_body)
 
     sentences = _split_body_to_sentences(flagged_body)
 
+    shaped_body = _create_shaped_body(sentences)
+
+    formatted_shaped_body = _format_shaped_body(shaped_body)
+
+    return formatted_shaped_body
+
+
+def _create_flag(body: str) -> str:
+    flagged_body = _create_sentence_block_flag(body)
+    flagged_body = _create_white_space_flag(flagged_body)
+    flagged_body = _create_colon_flag(flagged_body)
+    return flagged_body
+
+
+def _create_shaped_body(sentences: List[str]) -> str:
     shaped_body = ""
     for s in sentences:
         sentence = _shape_white_space(s)
@@ -18,9 +31,12 @@ def trim(raw_body: str) -> str:
 
         shaped_body += sentence
 
-    shaped_body = _format_two_more_lines(shaped_body)
-
     return shaped_body
+
+
+def _format_shaped_body(shaped_body: str) -> str:
+    formated_body = _format_two_more_lines(shaped_body)
+    return formated_body
 
 
 def _create_sentence_block_flag(body: str) -> str:
@@ -68,6 +84,7 @@ def _new_line_to_white_space(sentence: str) -> str:
 
 def _split_body_to_sentences(body: str) -> List[str]:
     return sent_tokenize(body)
+
 
 # 文末の改行1個と[SB]の改行2個などで改行が3個以上発生する可能性があるのでその場合は2個に抑え込む
 def _format_two_more_lines(body: str) -> str:
