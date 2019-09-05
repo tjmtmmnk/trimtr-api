@@ -54,12 +54,14 @@ def _create_colon_flag(body: str) -> str:
 def _shape_new_line(sentence: str) -> str:
     # [NL] を \n に置換する前に \n を空白に変換する
     shaped_sentence = _new_line_to_white_space(sentence)
+    is_flag_nl = True if re.search(r"\[NL\]", sentence) else False
+    is_flag_sb = True if re.search(r"\[SB\]", sentence) else False
 
-    if re.search(r"\[NL\]", sentence):
+    if is_flag_nl:
         shaped_sentence = shaped_sentence.replace("[NL]", "\n")
-    elif re.search(r"\[SB\]", sentence):
+    if is_flag_sb:
         shaped_sentence = shaped_sentence.replace("[SB]", "\n\n")
-    else:
+    if not is_flag_nl and not is_flag_sb:
         shaped_sentence = shaped_sentence + "\n"
 
     return shaped_sentence
@@ -82,6 +84,7 @@ def _new_line_to_white_space(sentence: str) -> str:
     return re.sub(r'((\n|\r\n)+)|( +(\n|\r\n)+)|((\n|\r\n)+ +)', ' ', sentence)
 
 
+# TODO:シングルトン実装
 def _split_body_to_sentences(body: str) -> List[str]:
     punkt_param = PunktParameters()
     punkt_param.abbrev_types = set(['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g'])
