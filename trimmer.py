@@ -3,6 +3,8 @@ import re
 from nltk.tokenize.punkt import PunktSentenceTokenizer, PunktParameters
 
 
+# マルチスレッドにするならスレッドセーフにするためのロック処理が必要そう
+# いまはgunicornでマルチプロセスでメモリを共有していないので考えなくて良さそう？
 class SingletonSentenceTokenizer:
     _unique_instance = None
 
