@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -8,6 +10,11 @@ app = Flask(__name__)
 CORS(app)
 
 
+@app.route('/', methods=['GET'])
+def index():
+    return "hello world"
+
+
 @app.route('/trim', methods=["POST"])
 def trim_post():
     trimmer = Trimmer()
@@ -15,4 +22,4 @@ def trim_post():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
