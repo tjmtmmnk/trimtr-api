@@ -4,7 +4,7 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 from flask_cors import CORS
-from trimmer import Trimmer
+from trimtr.trimmer import Trimmer
 
 app = Flask(__name__)
 CORS(app)

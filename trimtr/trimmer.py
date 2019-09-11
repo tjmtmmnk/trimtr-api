@@ -50,10 +50,9 @@ class Trimmer:
     @classmethod
     def _create_shaped_body(cls, sentences: List[str]) -> str:
         shaped_body = ""
-        for s in sentences:
+        for idx, s in enumerate(sentences, 1):
             sentence = cls._shape_white_space(s)
             sentence = cls._shape_new_line(sentence)
-
             shaped_body += sentence
 
         return shaped_body
@@ -64,12 +63,16 @@ class Trimmer:
         shaped_sentence = cls._new_line_to_white_space(sentence)
         is_flag_nl = True if re.search(r"\[NL\]", sentence) else False
         is_flag_sb = True if re.search(r"\[SB\]", sentence) else False
+        is_flag_eos = True if re.search(r"\[EOS\]", sentence) else False
 
         if is_flag_nl:
             shaped_sentence = shaped_sentence.replace("[NL]", "\n")
         if is_flag_sb:
             shaped_sentence = shaped_sentence.replace("[SB]", "\n\n")
-        if not is_flag_nl and not is_flag_sb:
+        if is_flag_eos:
+            shaped_sentence = shaped_sentence.replace("[EOS]", "")
+
+        if not is_flag_nl and not is_flag_sb and not is_flag_eos:
             shaped_sentence = shaped_sentence + "\n"
 
         return shaped_sentence
@@ -111,7 +114,10 @@ class Trimmer:
     @staticmethod
     def _split_body_to_sentences(body: str) -> List[str]:
         sent_tokenize = SingletonSentenceTokenizer.get_instance()
-        return sent_tokenize.tokenize(body)
+        sentences = sent_tokenize.tokenize(body)
+        sentences[-1] = sentences[-1] + "[EOS]"
+
+        return sentences
 
     @staticmethod
     # 文末の改行1個と[SB]の改行2個などで改行が3個以上発生する可能性があるのでその場合は2個に抑え込む
