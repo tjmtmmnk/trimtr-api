@@ -50,7 +50,7 @@ class Trimmer:
     @classmethod
     def _create_shaped_body(cls, sentences: List[str]) -> str:
         shaped_body = ""
-        for idx, s in enumerate(sentences, 1):
+        for s in sentences:
             sentence = cls._shape_white_space(s)
             sentence = cls._shape_new_line(sentence)
             shaped_body += sentence
@@ -92,15 +92,15 @@ class Trimmer:
 
     @staticmethod
     def _create_colon_flag(body: str) -> str:
-        return re.sub(r'(\w| ):( |\n|\r\n)+', ':[NL]', body)
+        return re.sub(r':( |\n|\r\n)+', ':[NL]', body)
 
     @staticmethod
     def _shape_white_space(sentence: str) -> str:
         shaped_sentence = sentence
 
         # 先頭の空白は消す
-        if re.match(r'^\[WS\]', sentence):
-            shaped_sentence = re.sub(r'^\[WS\]', '', sentence)
+        if re.match(r'^(\[WS\]| +)', sentence):
+            shaped_sentence = re.sub(r'^(\[WS\]| +)', '', sentence)
 
         shaped_sentence = shaped_sentence.replace("[WS]", " ")
 
