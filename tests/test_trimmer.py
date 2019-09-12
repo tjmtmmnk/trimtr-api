@@ -16,7 +16,7 @@ class TestTrimmer(unittest.TestCase):
 
     # 省略形が来た時に改行されない
     def test_abbreviation(self):
-        abbreviations = ['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g', 'U.S']
+        abbreviations = ['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g', 'u.s']
         random_abbreviation = random.choice(abbreviations)
         expected_sentence = random_abbreviation
         trimmed_sentence = self.trimmer.trim(random_abbreviation)

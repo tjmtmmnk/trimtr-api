@@ -14,7 +14,7 @@ class SingletonSentenceTokenizer:
     @classmethod
     def __internal_new__(cls):
         punkt_param = PunktParameters()
-        punkt_param.abbrev_types = set(['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g', 'U.S'])
+        punkt_param.abbrev_types = set(['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g', 'u.s'])
         sent_tokenize = PunktSentenceTokenizer(punkt_param)
         return sent_tokenize
 
