@@ -16,7 +16,7 @@ class TestTrimmer(unittest.TestCase):
 
     # 省略形が来た時に改行されない
     def test_abbreviation(self):
-        abbreviations = ['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g']
+        abbreviations = ['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g', 'U.S']
         random_abbreviation = random.choice(abbreviations)
         expected_sentence = random_abbreviation
         trimmed_sentence = self.trimmer.trim(random_abbreviation)
@@ -61,6 +61,20 @@ class TestTrimmer(unittest.TestCase):
     def test_shape_head_white_space(self):
         original_sentence = " How are you?"
         expected_sentence = "How are you?"
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
+    # 人名のピリオドが含まれる場合
+    def test_not_break_one_sentence(self):
+        original_sentence = "Punkt knows that the periods in Mr.Smith and Johann S. Bach do not mark sentence boundaries."
+        expected_sentence = original_sentence
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
+    # 数字のピリオドが含まれる場合
+    def test_number_period(self):
+        original_sentence = "For the quarter that ended March 31, Nokia earned $1.9 billion (1.2 euros), up 25% from the same quarter last year but short of an expected $2.3 billion."
+        expected_sentence = original_sentence
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
 
