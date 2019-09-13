@@ -29,6 +29,9 @@ class SingletonSentenceTokenizer:
 class Trimmer:
     @classmethod
     def trim(cls, raw_body: str) -> str:
+        if raw_body == "":
+            return ""
+
         # sent_tokenizeにかけると改行や空白が消えてしまうので先にフラグを立てておいて後で処理する
         flagged_body = cls._create_flag(raw_body)
 

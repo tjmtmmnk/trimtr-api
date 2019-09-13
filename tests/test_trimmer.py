@@ -78,6 +78,20 @@ class TestTrimmer(unittest.TestCase):
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
 
+    # 空文の場合
+    def test_empty(self):
+        original_sentence = ""
+        expected_sentence = original_sentence
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
+    # 単語だけの場合
+    def test_simple_word(self):
+        original_sentence = "hello"
+        expected_sentence = original_sentence
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
 
 if __name__ == "__main__":
     unittest.main()
