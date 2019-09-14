@@ -80,7 +80,7 @@ class TestTrimmer(unittest.TestCase):
 
     # 人名のピリオドが含まれる場合
     def test_not_break_one_sentence(self):
-        original_sentence = "Punkt knows that the periods in Mr.Smith and Johann S. Bach do not mark sentence boundaries."
+        original_sentence = "Punkt knows that the periods in Mr.Smith and Johann S.Bach do not mark sentence boundaries."
         expected_sentence = original_sentence
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
