@@ -1,8 +1,7 @@
 from typing import List
 import re
 from nltk.tokenize.punkt import PunktSentenceTokenizer, PunktParameters
-
-ABBREV_TYPES = set(['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g', 'u.s', 'etc'])
+from trimtr.util import Util
 
 
 # マルチスレッドにするならスレッドセーフにするためのロック処理が必要そう
@@ -15,8 +14,9 @@ class SentenceTokenizer:
 
     @classmethod
     def __internal_new__(cls):
+        util = Util()
         punkt_param = PunktParameters()
-        punkt_param.abbrev_types = ABBREV_TYPES
+        punkt_param.abbrev_types = util.get_abbrev_types()
         sent_tokenize = PunktSentenceTokenizer(punkt_param)
         return sent_tokenize
 

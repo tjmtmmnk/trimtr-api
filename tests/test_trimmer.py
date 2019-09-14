@@ -1,6 +1,7 @@
 import unittest
 import random
-from trimtr.trimmer import Trimmer, ABBREV_TYPES
+from trimtr.trimmer import Trimmer
+from trimtr.util import Util
 
 
 class TestTrimmer(unittest.TestCase):
@@ -16,7 +17,8 @@ class TestTrimmer(unittest.TestCase):
 
     # 省略形が来た時に改行されない
     def test_abbreviation(self):
-        abbreviations = ABBREV_TYPES
+        util = Util()
+        abbreviations = util.get_abbrev_types()
         random_abbreviation = random.sample(abbreviations, 1)[0]
         expected_sentence = random_abbreviation
         trimmed_sentence = self.trimmer.trim(random_abbreviation)
