@@ -5,7 +5,7 @@ from trimtr.trimmer import Trimmer, ABBREV_TYPES
 
 class TestTrimmer(unittest.TestCase):
     def setUp(self):
-        self.trimmer = Trimmer()
+        self.trimmer = Trimmer.get_instance()
 
     # 文と文の間は改行される
     def test_new_line_between_sentences(self):
@@ -105,6 +105,10 @@ class TestTrimmer(unittest.TestCase):
         expected_sentence = original_sentence
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
+
+    def test_singleton_trimmer(self):
+        new_trimmer = Trimmer.get_instance()
+        self.assertEqual(id(self.trimmer), id(new_trimmer))
 
 
 if __name__ == "__main__":

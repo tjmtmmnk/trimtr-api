@@ -23,7 +23,7 @@ def index():
 
 @app.route('/trim', methods=["POST"])
 def trim_post():
-    trimmer = Trimmer()
+    trimmer = Trimmer.get_instance()
     return jsonify({'text': trimmer.trim(request.get_data(as_text=True))}, 200)
 
 

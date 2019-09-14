@@ -7,7 +7,7 @@ ABBREV_TYPES = set(['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g', 'u.s',
 
 # マルチスレッドにするならスレッドセーフにするためのロック処理が必要そう
 # いまはgunicornでマルチプロセスでメモリを共有していないので考えなくて良さそう？
-class SingletonSentenceTokenizer:
+class SentenceTokenizer:
     _unique_instance = None
 
     def __new__(cls):
@@ -28,7 +28,24 @@ class SingletonSentenceTokenizer:
         return cls._unique_instance
 
 
+# Trimmerは状態を持たないのでシングルトンにしても問題ないはず
 class Trimmer:
+    _unique_instance = None
+
+    def __new__(cls):
+        raise NotImplementedError('Cannot initialize via Constructor')
+
+    @classmethod
+    def __internal_new__(cls):
+        return super().__new__(cls)
+
+    @classmethod
+    def get_instance(cls):
+        if not cls._unique_instance:
+            cls._unique_instance = cls.__internal_new__()
+
+        return cls._unique_instance
+
     @classmethod
     def trim(cls, raw_body: str) -> str:
         if raw_body == "":
@@ -118,7 +135,7 @@ class Trimmer:
 
     @staticmethod
     def _split_body_to_sentences(body: str) -> List[str]:
-        sent_tokenize = SingletonSentenceTokenizer.get_instance()
+        sent_tokenize = SentenceTokenizer.get_instance()
         sentences = sent_tokenize.tokenize(body)
         sentences[-1] = sentences[-1] + "[EOS]"
 
