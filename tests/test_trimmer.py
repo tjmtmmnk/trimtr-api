@@ -1,6 +1,6 @@
 import unittest
 import random
-from trimtr.trimmer import Trimmer
+from trimtr.trimmer import Trimmer, ABBREV_TYPES
 
 
 class TestTrimmer(unittest.TestCase):
@@ -16,8 +16,8 @@ class TestTrimmer(unittest.TestCase):
 
     # 省略形が来た時に改行されない
     def test_abbreviation(self):
-        abbreviations = ['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g', 'u.s']
-        random_abbreviation = random.choice(abbreviations)
+        abbreviations = ABBREV_TYPES
+        random_abbreviation = random.sample(abbreviations, 1)[0]
         expected_sentence = random_abbreviation
         trimmed_sentence = self.trimmer.trim(random_abbreviation)
         self.assertEqual(expected_sentence, trimmed_sentence)
@@ -54,6 +54,20 @@ class TestTrimmer(unittest.TestCase):
     def test_colon(self):
         original_sentence = "I like this: "
         expected_sentence = "I like this:\n"
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
+    # コロン+改行が来たら改行される
+    def test_colon_not_new_line(self):
+        original_sentence = "This is:\n"
+        expected_sentence = original_sentence
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
+    # コロン+英数字が来たら改行されない
+    def test_colon_not_new_line(self):
+        original_sentence = "This:is"
+        expected_sentence = original_sentence
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
 
