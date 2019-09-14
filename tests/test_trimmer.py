@@ -110,6 +110,13 @@ class TestTrimmer(unittest.TestCase):
         new_trimmer = Trimmer.get_instance()
         self.assertEqual(id(self.trimmer), id(new_trimmer))
 
+    # 空白無しで文章が連続する場合
+    def test_continuing_sentences_without_white_space(self):
+        original_sentence = "A clinical study that lacks a comparison (i.e., a control) group.I like it."
+        expected_sentence = "A clinical study that lacks a comparison (i.e., a control) group.\nI like it."
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
 
 if __name__ == "__main__":
     unittest.main()
