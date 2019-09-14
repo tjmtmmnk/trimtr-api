@@ -51,8 +51,11 @@ class Trimmer:
         if raw_body == "":
             return ""
 
+        # 文章が空白などなしに連続すると文末判定されないので空白を挿入する
+        inserted_body = cls._insert_after_period(raw_body)
+
         # sent_tokenizeにかけると改行や空白が消えてしまうので先にフラグを立てておいて後で処理する
-        flagged_body = cls._create_flag(raw_body)
+        flagged_body = cls._create_flag(inserted_body)
 
         sentences = cls._split_body_to_sentences(flagged_body)
 
@@ -102,7 +105,12 @@ class Trimmer:
     @classmethod
     def _format_shaped_body(cls, shaped_body: str) -> str:
         formatted_body = cls._format_two_more_lines(shaped_body)
+        formatted_body = cls._format_white_space_after_period(formatted_body)
         return formatted_body
+
+    @staticmethod
+    def _insert_after_period(body: str) -> str:
+        return re.sub(r'(\w)\.(\w)', r'\1. \2', body)
 
     @staticmethod
     def _create_sentence_block_flag(body: str) -> str:
@@ -145,3 +153,7 @@ class Trimmer:
     # 文末の改行1個と[SB]の改行2個などで改行が3個以上発生する可能性があるのでその場合は2個に抑え込む
     def _format_two_more_lines(body: str) -> str:
         return re.sub(r'((\n|\r\n){3,})', "\n\n", body)
+
+    @staticmethod
+    def _format_white_space_after_period(body: str) -> str:
+        return re.sub(r'\. ', ".", body)
