@@ -109,7 +109,7 @@ class Trimmer:
 
     @staticmethod
     def _insert_after_period(body: str) -> str:
-        return re.sub(r'([a-zA-Z])\.([a-zA-Z])', r'\1. \2', body)
+        return re.sub(r'(\D)\.(\D)', r'\1. \2', body)
 
     @staticmethod
     def _create_sentence_block_flag(body: str) -> str:
