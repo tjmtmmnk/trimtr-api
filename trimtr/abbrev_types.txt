@@ -32,3 +32,5 @@ rd
 st
 n.b
 p.s
+cf
+fig
