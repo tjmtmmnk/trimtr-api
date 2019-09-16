@@ -1,8 +1,7 @@
 from typing import List
 import re
+import os
 from nltk.tokenize.punkt import PunktSentenceTokenizer, PunktParameters
-
-ABBREV_TYPES = set(['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g', 'u.s', 'etc'])
 
 
 # マルチスレッドにするならスレッドセーフにするためのロック処理が必要そう
@@ -15,10 +14,10 @@ class SentenceTokenizer:
 
     @classmethod
     def __internal_new__(cls):
-        punkt_param = PunktParameters()
-        punkt_param.abbrev_types = ABBREV_TYPES
-        sent_tokenize = PunktSentenceTokenizer(punkt_param)
-        return sent_tokenize
+        directory = os.path.dirname(os.path.abspath(__file__)) + "/"
+        with open(directory + "news.txt", 'r') as f:
+            text = f.read()
+            return PunktSentenceTokenizer(train_text=text)
 
     @classmethod
     def get_instance(cls):
@@ -110,7 +109,7 @@ class Trimmer:
 
     @staticmethod
     def _insert_after_period(body: str) -> str:
-        return re.sub(r'([a-zA-Z])\.([a-zA-Z])', r'\1. \2', body)
+        return re.sub(r'(\D)\.(\D)', r'\1. \2', body)
 
     @staticmethod
     def _create_sentence_block_flag(body: str) -> str:
