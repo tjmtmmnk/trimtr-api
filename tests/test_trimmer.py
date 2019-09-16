@@ -1,6 +1,6 @@
 import unittest
 import random
-from trimtr.trimmer import Trimmer, ABBREV_TYPES
+from trimtr.trimmer import Trimmer
 
 
 class TestTrimmer(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestTrimmer(unittest.TestCase):
 
     # 省略形が来た時に改行されない
     def test_abbreviation(self):
-        abbreviations = ABBREV_TYPES
+        abbreviations = set(['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g', 'u.s', 'etc'])
         random_abbreviation = random.sample(abbreviations, 1)[0]
         expected_sentence = random_abbreviation
         trimmed_sentence = self.trimmer.trim(random_abbreviation)
@@ -114,6 +114,15 @@ class TestTrimmer(unittest.TestCase):
     def test_continuing_sentences_without_white_space(self):
         original_sentence = "A clinical study that lacks a comparison (i.e., a control) group.I like it."
         expected_sentence = "A clinical study that lacks a comparison (i.e., a control) group.\nI like it."
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
+    # 空白無しで文章が連続する場合
+    def test_continuing_sentences_without_white_space(self):
+        last_words = set([')', '\"', '>', 'p'])
+        last_word = random.sample(last_words, 1)[0]
+        original_sentence = "A clinical study that lacks a 2.2 comparison (i.e., a control) grou" + last_word + ".I like it."
+        expected_sentence = "A clinical study that lacks a 2.2 comparison (i.e., a control) grou" + last_word + ".\nI like it."
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
 
