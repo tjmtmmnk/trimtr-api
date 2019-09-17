@@ -3680,5 +3680,14 @@ I’ll be afk for 5 mins.
 Did u watch the video? lol.
 Hang out 2nite?
 OMG!
+1. Alice tosses a coin, commits to the outcome bA (heads = 0, tails = 1) and sends the commitment to Bob.
+2. Bob also tosses a coin and sends the result bB to Alice.
+3. Alice opens her commitment by sending the additional informa-tion to Bob.
+1. The sender sends the bit b he wants to commit to, in encrypted form, to the receiver.
+2. The sender sends additional information to the receiver, enabling the receiver to recover b.
+1. In the commit step, the receiver does not learn anything about the committed value. He cannot distinguish a commitment to 0 from a commitment to 1.
+2. The sender cannot change the committed value after the commit step. This requirement has to be satisfied, even if the sender tries to cheat.
+3. If both the sender and the receiver follow the protocol, the receiver will always recover the committed value.
+1. Bob can generate p, q, g and v as in the DSA (see Section 3.5.3).
 
 

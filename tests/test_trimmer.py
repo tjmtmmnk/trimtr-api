@@ -126,6 +126,14 @@ class TestTrimmer(unittest.TestCase):
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
 
+    # 数字付き箇条書き
+    def test_bullet_with_number(self):
+        number = str(random.randint(0, 100))
+        original_sentence = number + ". A clinical study that lacks a 2.2 comparison (i.e., a control) group.I like it."
+        expected_sentence = number + ".A clinical study that lacks a 2.2 comparison (i.e., a control) group.\nI like it."
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
 
 if __name__ == "__main__":
     unittest.main()
