@@ -126,6 +126,14 @@ class TestTrimmer(unittest.TestCase):
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
 
+    # 数字付き箇条書き
+    def test_bullet_with_number(self):
+        number = str(random.randint(0, 100))
+        original_sentence = number + ". Bob also tosses a coin and sends the result 2.2 to Alice. I like it."
+        expected_sentence = number + ".Bob also tosses a coin and sends the result 2.2 to Alice.\nI like it."
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
 
 if __name__ == "__main__":
     unittest.main()
