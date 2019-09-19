@@ -128,10 +128,16 @@ class TestTrimmer(unittest.TestCase):
 
     # 2,3点ドットがそのまま表示される
     def test_dot(self):
-        original_sentence = "A1,...,A3,..,A4 is array."
-        expected_sentence = original_sentence
-        trimmed_sentence = self.trimmer.trim(original_sentence)
-        self.assertEqual(expected_sentence, trimmed_sentence)
+        original_sentence1 = "A1,...,A3,..,A4 is array."
+        expected_sentence1 = original_sentence1
+        original_sentence2 = "A1,. . .,A3,. .,A4 is array."
+        expected_sentence2 = "A1,...,A3,..,A4 is array."
+
+        trimmed_sentence1 = self.trimmer.trim(original_sentence1)
+        self.assertEqual(expected_sentence1, trimmed_sentence1)
+
+        trimmed_sentence2 = self.trimmer.trim(original_sentence2)
+        self.assertEqual(expected_sentence2, trimmed_sentence2)
 
 
 if __name__ == "__main__":

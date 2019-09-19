@@ -127,8 +127,8 @@ class Trimmer:
 
     @staticmethod
     def _create_dot_flag(body: str) -> str:
-        two_or_three_dot_flag = re.sub(r'\.{3}', "[THD]", body)
-        two_or_three_dot_flag = re.sub(r'\.{2}', "[TOD]", two_or_three_dot_flag)
+        two_or_three_dot_flag = re.sub(r'\. ?\. ?\.', "[THD]", body)
+        two_or_three_dot_flag = re.sub(r'\. ?\.', "[TOD]", two_or_three_dot_flag)
         return two_or_three_dot_flag
 
     @staticmethod
