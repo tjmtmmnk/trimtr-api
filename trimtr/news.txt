@@ -3680,5 +3680,98 @@ I’ll be afk for 5 mins.
 Did u watch the video? lol.
 Hang out 2nite?
 OMG!
+1. Alice tosses a coin, commits to the outcome bA (heads = 0, tails = 1) and sends the commitment to Bob.
+2. Bob also tosses a coin and sends the result bB to Alice.
+3. Alice opens her commitment by sending the additional informa-tion to Bob.
+1. The sender sends the bit b he wants to commit to, in encrypted form, to the receiver.
+2. The sender sends additional information to the receiver, enabling the receiver to recover b.
+1. In the commit step, the receiver does not learn anything about the committed value. He cannot distinguish a commitment to 0 from a commitment to 1.
+2. The sender cannot change the committed value after the commit step. This requirement has to be satisfied, even if the sender tries to cheat.
+3. If both the sender and the receiver follow the protocol, the receiver will always recover the committed value.
+1. Bob can generate p, q, g and v as in the DSA (see Section 3.5.3).
+I obtained my Ph.D. degree in 1993.
+a person with a Ph.D. who cannot find employment.
+The first semester of PH.D. is classified as M.A.
+The Bayer-Groth proof uses a generalisation of Pedersen commitments with multiple generators H, G1, G2, ..., Gn.
+They describe the scheme as “computationally binding under the discrete logarithm assumption,” (p.5).
+Thus, we may construct
+Using this adaptation we are able to construct an efficient multiexponentiation argument that a ciphertext C is the product of a set of known ciphertexts C1, ... , CN raised to a set of hidden committed values a1, ... , aN.
+What do the letters P.S. stand for?
+Will you please add a postscript [a p.s.] to your letter saying that I got home yesterday?
+A U.S. intelligence official alarmed by President Trump’s communications with a foreign leader filed an official whistleblower complaint last month with the inspector general for the intelligence community, the Washington Post reports.
+Trump’s interactions with the leader, whose identity has not been disclosed, included what the Post described as “a promise” the official “regarded as so troubling” that the official came forward.
+It’s not clear what form the interaction took place, though one intelligence official told the Post that it was a phone call.
+Intelligence Community Inspector General Michael Atkinson found the complaint, which was filed on Aug. 12, to be credible and designated the matter of “urgent concern,” a legal classification that is supposed to prompt the notification of oversight committees in Congress.
+Acting director of national intelligence Joseph Maguire, however, has so far refused to share the whistleblower’s concerns with Congress, setting off yet another power struggle between congressional leaders and the Trump administration, as well as speculation over what leader Trump may have acted inappropriately with.
+The New York Times reporters behind the controversial piece about Supreme Court Associate Justice Brett Kavanaugh claimed on Wednesday night that he had agreed to be interviewed for their book under the condition that they write that they didn't speak with him.
 
+Appearing at a National Press Club event in Washington D.C., Robin Pogrebin and Kate Kelly, the co-authors of the new book "The Education of Brett Kavanaugh: An Investigation," said Kavanaugh was willing to sit down with the them, but ultimately fell through because of his demand.
 
+"Brett Kavanaugh agreed to talk to @katekelly and @rpogrebin for their book - If they wrote that they didn't talk to him," National Press Club president Allison Kodjak tweeted.
+"The authors - who told the story tonight @PressClubDC, refused and walked away from the interview."
+On Monday, Pogrebin and Kelly claimed that the key information missing from their piece was in the original draft and suggested that the editors removed it.
+
+"In your draft of the article, did it include those words that have since been added to the article?" MSNBC host Lawrence O'Donnell asked.
+
+"It did," both Pogrebin and Kelly responded.
+
+"So somewhere in the editing process, those words were trimmed," O'Donnell said in clarification.
+
+Pogrebin then explained that The Times doesn't usually include names of victims and that she believed that when the editors removed the name, the crucial information that she didn't remember was also removed.
+
+"So I think it was just sort of an editing, you know, done in the haste in the editing process," Pogrebin added.
+According to AdGuard, the real purpose of these fake ad blocking extensions is “cookie stuffing,” which is used as an ad fraud scheme.
+Within minutes of the alarm going off shortly after 5 p.m. local time (11 p.m. ET) authorities were trying to calm the public by getting out word of the mistake.
+The National Weather Service in Honolulu tweeted: "***NO TSUNAMI THREAT*** We have received phone calls about sirens going off across Oahu, but we have confirmed with the Pacific Tsunami Warning Center that there is NO TSUNAMI THREAT."
+"Mahalo to everyone for taking appropriate action & tuning into local media," he tweeted, adding that the sirens had been "inadvertently triggered" during Honolulu Police Department training.
+The incident reminded residents of a heart-stopping January 13, 2018 false warning of a ballistic missile attack which occurred amid especially bellicose rhetoric between President Trump and North Korean leader Kim Jong Un. Just days before the mistaken alert, Kim had warned that the nuclear button is "always on my desk" and Trump retorted with a tweet: "I too have a Nuclear Button, but it is a much bigger & more powerful one than his, and my Button works!"
+"I am pleased to announce that I will name Robert C. O'Brien, currently serving as the very successful Special Presidential Envoy for Hostage Affairs at the State Department, as our new National Security Advisor.
+Trump personally dispatched O'Brien to help free US rapper A$AP Rocky from Swedish prison earlier this year.
+Introducing O'Brien to reporters on the tarmac of Los Angeles International Airport, Trump hailed his "tremendous track record" securing the release of hostages and said "we know each other well," adding "Robert's been fantastic" as a hostage negotiator and that the US hasn't spent any money to secure the hostages' release.
+"Robert O'Brien said, 'Trump is the greatest hostage negotiator in history.'
+At a ceremony in Jerusalem on Thursday, President Reuven Rivlin welcomed the prime minister's "important call".
+Mr Gantz's Blue and White alliance is 0.77% ahead of Mr Netanyahu's right-wing Likud party. The Joint List, an alliance of Arab parties, is in third place, the ultra-Orthodox Shas party in fourth, and the nationalist Yisrael Beiteinu party in fifth.
+Mr Netanyahu also referenced the unity government between Shimon Peres and Yitzhak Shamir in the 1980s - which some local media saw as a hint towards a possible rotating premiership.
+The Federal Reserve announced Wednesday that its Open Market Committee had voted to cut the federal funds rate by 25 basis points to a range of 1.75% to 2%.
+The federal funds rate is the benchmark interest rate that banks use when lending to one another.
+Interest rates on loans and deposits are typically influenced by the Federal Reserve’s decisions vis-à-vis the federal funds rate.
+Meet me at our first-ever Interface Live on Tuesday, October 22nd! I’ll be chatting with misinformation researcher Renee DiResta. Get tickets.
+
+One of the first adages I heard as a tech reporter is a three-word refrain uttered by anyone who’s ever sought to make something with atoms rather than bits: Hardware is hard. Make a mistake in software and you can push out a fix more or less immediately; make a mistake with hardware and the phones explode. In the old days, a tech company typically made software or hardware, but these days that or has been replaced with an and. After Apple’s outsized success with the iPhone, all the other tech giants got religion on the value of software and hardware working together. And suddenly companies like Microsoft, Google, and Facebook, who once limited themselves to high-margin software businesses, had to invest untold billions in figuring out to make and sell physical objects.
+
+Facebook first dipped a toe in these waters when it bought Oculus, maker of virtual reality hardware, in 2014. Since then, as Salvador Rodriguez recounts in CNBC today, the company has struggled to gain traction in hardware markets. It spun up a research and development lab called Building 8 in 2016, making sci-fi promises about technologies that would let us hear with our skin and type with our minds. But Building 8 was reorganized into nonexistence just two years later — with its only lasting contribution to Facebook’s product lineup being the video-chat device Portal.
+
+Portal launched last year to a tech press skeptical that consumers would welcome into their homes a camera and microphone from a company that has spent the past few years battered by data privacy scandals.
+At the same time, it can take a brand years to build market share. There was never a question in my mind whether Facebook would build a second generation of Portal devices — only what they would look like when they arrived, and how the world would react when they did.
+
+On Wednesday we found out. The company introduced three new version of Portal: an 8-inch and a 10-inch version that look like less functional iPads, and an accessory called Portal TV that plugs into your television. As before, a major theme of coverage was the privacy risks associated with the device.
+Andrew “Boz” Bosworth, the longtime Facebook executive who now runs the hardware division, says Portal is a quintessential Facebook product. “This product is the very core essence of what Facebook does,” he said Tuesday at a product demonstration I attended in San Francisco. “It connects you meaningfully with the people you care most about.”
+
+The way it connects people is largely through video calls, which it spiffs up with augmented reality features, a camera that tracks people around the room, and other enhancements. To me it all feels like a lot of work to make video calls marginally better, but Bosworth told me that Portal is something different.
+
+“Video calling on the phone always felt very transactional,” he told me. “Your left hand is sacrificed to the call until you’re done. [You’d think] ‘how can I get off this call as politely as possible? Whereas Portal is a lot more like hanging out. You don’t have to be doing anything. That, I think, is something that is interesting.”
+
+Sure, I said. But why not just buy an iPad and use Skype or FaceTime?
+
+“Right now those are not good experiences,” Bosworth said. “Go set an iPad up and spend a ton of time video-calling people you care about. See how enjoyable it, is or how annoying it is. And then do it with Portal.
+
+“This is where I think people go wrong,” he continued. “People just look at the features on the box … That’s not there this lives. This lives in the experience.”
+
+It remains to be seen how many more people will sign up for that experience than did last year. In the meantime, it’s clear that the story over privacy and in-home displays doesn’t begin and end with Facebook. On the same day news of Portal came out, the Washington Post reported on how your smart TV is monitoring what you watch to target ads at you, and the Financial Times reported that your smart TV is sending market research data to Netflix and personally identifying information to Google.
+A couple follow-up notes from yesterday’s column about Facebook’s forthcoming judicial branch. One, I’m told that the current working name is the “oversight board,” rather than the “independent oversight board,” even though that language was in yesterday’s blog post. The board will eventually be able to amend its bylines to change the name if it wants, Facebook told me.
+
+Of more consequence: Evelyn Douek has a good post at Lawfare in which she explores how a recent update to Facebook’s values could affect how the board ultimately makes its decisions.
+Therefore, in cases of ambiguity, when the extent of risk posed by a certain category of speech is not necessarily clear, Facebook will not—and, if the Oversight Board project works, cannot—err on the side of caution and simply take that content down “just in case.” This reflects a certain degree of risk tolerance on Facebook’s part—which will no doubt be praised by those committed to a robust marketplace of ideas. It also perhaps reflects the changing role of these private companies that facilitate so much public discourse: They are not literally, technically or legally a new public square, but their systemic importance means that society is coming to have expectations of their responsibility to the public that go beyond mere consumer satisfaction.
+The Oversight Board is fundamentally a bet by Facebook that the legitimacy of its decisions matters—and matters more than getting its way on every question. As other platforms seem to double down on the idea that they do not need to publicly explain their decisions or abide by their own rules when it does not suit their short-term interests, Facebook appears to be making a different wager: Accountability and legitimacy can reassure users—and regulators—of the value of its product. Acting in bad faith would undermine Facebook’s own gamble. Legitimacy, Facebook hopes, will become part of its value proposition.
+People with Amazon Alexa speakers can start making campaign donations to 2020 presidential candidates using their devices starting tomorrow. But the rules say you can only donate to “principal” candidates, and Amazon hasn’t yet clearly defined who falls into this category. (Makena Kelly / The Verge)
+
+At least 75 countries, including the U.S. and Germany, have adopted China’s surveillance strategies, using facial recognition software to track citizens. Much of the software comes from Chinese telecom company Huawei. (Ryan Tracy / The Wall Street Journal)
+
+The Chinese government ran a Russian-style disinformation campaign on Twitter in an effort to discredit Hong Kong protestors. Twitter has taken down 1,000 fake accounts linked to this operation, and suspended 200,000 more. (Raymond Zhong, Steven Lee Myers, and Jin Wu / The New York Times)
+
+Hong Kong protesters make clever use of tools including Telegram, Twitter, and live maps. The entrepreneur and social critic Maciej Cegłowski shares characteristically sharp notes . (Maciej Cegłowski / Idle Words)
+
+London’s Met police force is teaming up with Facebook in an effort to prevent live streaming terrorist attacks around the world. The Met will give Facebook video footage from officer trainings to help the company develop technology that can detect when someone is live-streaming an attack. (Metropolitan Police)
+Another Latin abbreviation you may see is "viz", which is short for videlicet, meaning "namely."
+This n.b. is sometimes written at the end of a communication that needs special attention.
+It stands for nota bene, which means "take notice," or "note well."

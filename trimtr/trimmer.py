@@ -50,11 +50,8 @@ class Trimmer:
         if raw_body == "":
             return ""
 
-        # 文章が空白などなしに連続すると文末判定されないので空白を挿入する
-        inserted_body = cls._insert_after_period(raw_body)
-
         # sent_tokenizeにかけると改行や空白が消えてしまうので先にフラグを立てておいて後で処理する
-        flagged_body = cls._create_flag(inserted_body)
+        flagged_body = cls._create_flag(raw_body)
 
         sentences = cls._split_body_to_sentences(flagged_body)
 
@@ -69,6 +66,10 @@ class Trimmer:
         flagged_body = cls._create_sentence_block_flag(body)
         flagged_body = cls._create_white_space_flag(flagged_body)
         flagged_body = cls._create_colon_flag(flagged_body)
+        flagged_body = cls._create_dot_flag(flagged_body)
+
+        # 文章が空白などなしに連続すると文末判定されないので空白を挿入する
+        flagged_body = cls._insert_after_period(flagged_body)
         return flagged_body
 
     @classmethod
@@ -77,6 +78,7 @@ class Trimmer:
         for s in sentences:
             sentence = cls._shape_white_space(s)
             sentence = cls._shape_new_line(sentence)
+            sentence = cls._shape_dot(sentence)
             shaped_body += sentence
 
         return shaped_body
@@ -124,6 +126,12 @@ class Trimmer:
         return re.sub(r':( |\n|\r\n)+', ':[NL]', body)
 
     @staticmethod
+    def _create_dot_flag(body: str) -> str:
+        two_or_three_dot_flag = re.sub(r'\.{3}', "[THD]", body)
+        two_or_three_dot_flag = re.sub(r'\.{2}', "[TOD]", two_or_three_dot_flag)
+        return two_or_three_dot_flag
+
+    @staticmethod
     def _shape_white_space(sentence: str) -> str:
         shaped_sentence = sentence
 
@@ -133,6 +141,12 @@ class Trimmer:
 
         shaped_sentence = shaped_sentence.replace("[WS]", " ")
 
+        return shaped_sentence
+
+    @staticmethod
+    def _shape_dot(sentence: str) -> str:
+        shaped_sentence = sentence.replace("[TOD]", "..")
+        shaped_sentence = shaped_sentence.replace("[THD]", "...")
         return shaped_sentence
 
     # 文中で変な改行が含まれている時に空白に変換する
