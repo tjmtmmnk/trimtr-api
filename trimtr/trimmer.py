@@ -1,7 +1,8 @@
 from typing import List
 import re
 import os
-from nltk.tokenize.punkt import PunktSentenceTokenizer, PunktParameters
+from nltk.tokenize.punkt import PunktSentenceTokenizer
+from trimtr.util import get_abbrev_types_from_file, get_abs_path
 
 
 # マルチスレッドにするならスレッドセーフにするためのロック処理が必要そう
@@ -14,10 +15,13 @@ class SentenceTokenizer:
 
     @classmethod
     def __internal_new__(cls):
-        directory = os.path.dirname(os.path.abspath(__file__)) + "/"
-        with open(directory + "news.txt", 'r') as f:
+        with open(get_abs_path() + "train.txt", 'r') as f:
             text = f.read()
-            return PunktSentenceTokenizer(train_text=text)
+            sent_tokenize = PunktSentenceTokenizer(train_text=text)
+            additional_abbrev_types = get_abbrev_types_from_file()
+            for abbrev in additional_abbrev_types:
+                sent_tokenize._params.abbrev_types.add(abbrev)
+            return sent_tokenize
 
     @classmethod
     def get_instance(cls):
