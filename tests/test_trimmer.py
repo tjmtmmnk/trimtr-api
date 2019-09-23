@@ -112,13 +112,6 @@ class TestTrimmer(unittest.TestCase):
 
     # 空白無しで文章が連続する場合
     def test_continuing_sentences_without_white_space(self):
-        original_sentence = "A clinical study that lacks a comparison (i.e., a control) group.I like it."
-        expected_sentence = "A clinical study that lacks a comparison (i.e., a control) group.\nI like it."
-        trimmed_sentence = self.trimmer.trim(original_sentence)
-        self.assertEqual(expected_sentence, trimmed_sentence)
-
-    # 空白無しで文章が連続する場合
-    def test_continuing_sentences_without_white_space(self):
         last_words = set([')', '\"', '>', 'p'])
         last_word = random.sample(last_words, 1)[0]
         original_sentence = "A clinical study that lacks a 2.2 comparison (i.e., a control) grou" + last_word + ".I like it."

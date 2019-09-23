@@ -1,6 +1,5 @@
 from typing import List
 import re
-import os
 from nltk.tokenize.punkt import PunktSentenceTokenizer
 from trimtr.util import get_abbrev_types_from_file, get_abs_path
 

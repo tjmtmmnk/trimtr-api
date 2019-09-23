@@ -1,11 +1,10 @@
 import unittest
-from trimtr.util import Util
+from trimtr.util import get_abbrev_types_from_file
 
 
 class TestUtil(unittest.TestCase):
     def test_get_abbrev_types(self):
-        util = Util()
-        abbrev_types = util.get_abbrev_types()
+        abbrev_types = get_abbrev_types_from_file()
         self.assertGreater(len(abbrev_types), 0)
 
 
