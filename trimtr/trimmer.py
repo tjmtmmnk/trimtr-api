@@ -82,26 +82,25 @@ class Trimmer:
             sentence = cls._shape_white_space(s)
             sentence = cls._shape_new_line(sentence)
             sentence = cls._shape_dot(sentence)
+            sentence = cls._shape_colon(sentence)
             shaped_body += sentence
 
         return shaped_body
 
     @classmethod
     def _shape_new_line(cls, sentence: str) -> str:
-        # [NL] を \n に置換する前に \n を空白に変換する
+        # \n に置換する前に \n を空白に変換する
         shaped_sentence = cls._new_line_to_white_space(sentence)
-        is_flag_nl = True if re.search(r"\[NL\]", sentence) else False
+
         is_flag_sb = True if re.search(r"\[SB\]", sentence) else False
         is_flag_eos = True if re.search(r"\[EOS\]", sentence) else False
 
-        if is_flag_nl:
-            shaped_sentence = shaped_sentence.replace("[NL]", "\n")
         if is_flag_sb:
             shaped_sentence = shaped_sentence.replace("[SB]", "\n\n")
         if is_flag_eos:
             shaped_sentence = shaped_sentence.replace("[EOS]", "")
 
-        if not is_flag_nl and not is_flag_sb and not is_flag_eos:
+        if not is_flag_sb and not is_flag_eos:
             shaped_sentence = shaped_sentence + "\n"
 
         return shaped_sentence
@@ -126,7 +125,7 @@ class Trimmer:
 
     @staticmethod
     def _create_colon_flag(body: str) -> str:
-        return re.sub(r':( |\n|\r\n)+', ':[NL]', body)
+        return re.sub(r':( |\n|\r\n)+', '[CL]', body)
 
     @staticmethod
     def _create_dot_flag(body: str) -> str:
@@ -151,6 +150,10 @@ class Trimmer:
         shaped_sentence = sentence.replace("[TOD]", "..")
         shaped_sentence = shaped_sentence.replace("[THD]", "...")
         return shaped_sentence
+
+    @staticmethod
+    def _shape_colon(sentence: str) -> str:
+        return sentence.replace("[CL]", ":\n")
 
     # 文中で変な改行が含まれている時に空白に変換する
     @staticmethod
