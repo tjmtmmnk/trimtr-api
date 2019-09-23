@@ -1,7 +1,6 @@
 import unittest
 import random
 from trimtr.trimmer import Trimmer
-from trimtr.util import Util
 
 
 class TestTrimmer(unittest.TestCase):
@@ -17,8 +16,7 @@ class TestTrimmer(unittest.TestCase):
 
     # 省略形が来た時に改行されない
     def test_abbreviation(self):
-        util = Util()
-        abbreviations = util.get_abbrev_types()
+        abbreviations = set(['dr', 'vs', 'mr', 'mrs', 'prof', 'inc', 'i.e', 'e.g', 'u.s', 'etc'])
         random_abbreviation = random.sample(abbreviations, 1)[0]
         expected_sentence = random_abbreviation
         trimmed_sentence = self.trimmer.trim(random_abbreviation)
@@ -82,7 +80,7 @@ class TestTrimmer(unittest.TestCase):
 
     # 人名のピリオドが含まれる場合
     def test_not_break_one_sentence(self):
-        original_sentence = "Punkt knows that the periods in Mr.Smith and Johann S. Bach do not mark sentence boundaries."
+        original_sentence = "Punkt knows that the periods in Mr.Smith and Johann S.Bach do not mark sentence boundaries."
         expected_sentence = original_sentence
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
@@ -111,6 +109,35 @@ class TestTrimmer(unittest.TestCase):
     def test_singleton_trimmer(self):
         new_trimmer = Trimmer.get_instance()
         self.assertEqual(id(self.trimmer), id(new_trimmer))
+
+    # 空白無しで文章が連続する場合
+    def test_continuing_sentences_without_white_space(self):
+        original_sentence = "A clinical study that lacks a comparison (i.e., a control) group.I like it."
+        expected_sentence = "A clinical study that lacks a comparison (i.e., a control) group.\nI like it."
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
+    # 空白無しで文章が連続する場合
+    def test_continuing_sentences_without_white_space(self):
+        last_words = set([')', '\"', '>', 'p'])
+        last_word = random.sample(last_words, 1)[0]
+        original_sentence = "A clinical study that lacks a 2.2 comparison (i.e., a control) grou" + last_word + ".I like it."
+        expected_sentence = "A clinical study that lacks a 2.2 comparison (i.e., a control) grou" + last_word + ".\nI like it."
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
+    # 2,3点ドットがそのまま表示される
+    def test_dot(self):
+        original_sentence1 = "A1,...,A3,..,A4 is array."
+        expected_sentence1 = original_sentence1
+        original_sentence2 = "A1,. . .,A3,. .,A4 is array."
+        expected_sentence2 = "A1,...,A3,..,A4 is array."
+
+        trimmed_sentence1 = self.trimmer.trim(original_sentence1)
+        self.assertEqual(expected_sentence1, trimmed_sentence1)
+
+        trimmed_sentence2 = self.trimmer.trim(original_sentence2)
+        self.assertEqual(expected_sentence2, trimmed_sentence2)
 
 
 if __name__ == "__main__":

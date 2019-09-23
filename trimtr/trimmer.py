@@ -1,7 +1,7 @@
 from typing import List
 import re
+import os
 from nltk.tokenize.punkt import PunktSentenceTokenizer, PunktParameters
-from trimtr.util import Util
 
 
 # マルチスレッドにするならスレッドセーフにするためのロック処理が必要そう
@@ -14,11 +14,10 @@ class SentenceTokenizer:
 
     @classmethod
     def __internal_new__(cls):
-        util = Util()
-        punkt_param = PunktParameters()
-        punkt_param.abbrev_types = util.get_abbrev_types()
-        sent_tokenize = PunktSentenceTokenizer(punkt_param)
-        return sent_tokenize
+        directory = os.path.dirname(os.path.abspath(__file__)) + "/"
+        with open(directory + "news.txt", 'r') as f:
+            text = f.read()
+            return PunktSentenceTokenizer(train_text=text)
 
     @classmethod
     def get_instance(cls):
@@ -67,6 +66,10 @@ class Trimmer:
         flagged_body = cls._create_sentence_block_flag(body)
         flagged_body = cls._create_white_space_flag(flagged_body)
         flagged_body = cls._create_colon_flag(flagged_body)
+        flagged_body = cls._create_dot_flag(flagged_body)
+
+        # 文章が空白などなしに連続すると文末判定されないので空白を挿入する
+        flagged_body = cls._insert_after_period(flagged_body)
         return flagged_body
 
     @classmethod
@@ -75,6 +78,7 @@ class Trimmer:
         for s in sentences:
             sentence = cls._shape_white_space(s)
             sentence = cls._shape_new_line(sentence)
+            sentence = cls._shape_dot(sentence)
             shaped_body += sentence
 
         return shaped_body
@@ -102,7 +106,12 @@ class Trimmer:
     @classmethod
     def _format_shaped_body(cls, shaped_body: str) -> str:
         formatted_body = cls._format_two_more_lines(shaped_body)
+        formatted_body = cls._format_white_space_after_period(formatted_body)
         return formatted_body
+
+    @staticmethod
+    def _insert_after_period(body: str) -> str:
+        return re.sub(r'(\D)\.(\D)', r'\1. \2', body)
 
     @staticmethod
     def _create_sentence_block_flag(body: str) -> str:
@@ -117,6 +126,12 @@ class Trimmer:
         return re.sub(r':( |\n|\r\n)+', ':[NL]', body)
 
     @staticmethod
+    def _create_dot_flag(body: str) -> str:
+        two_or_three_dot_flag = re.sub(r'\. ?\. ?\.', "[THD]", body)
+        two_or_three_dot_flag = re.sub(r'\. ?\.', "[TOD]", two_or_three_dot_flag)
+        return two_or_three_dot_flag
+
+    @staticmethod
     def _shape_white_space(sentence: str) -> str:
         shaped_sentence = sentence
 
@@ -126,6 +141,12 @@ class Trimmer:
 
         shaped_sentence = shaped_sentence.replace("[WS]", " ")
 
+        return shaped_sentence
+
+    @staticmethod
+    def _shape_dot(sentence: str) -> str:
+        shaped_sentence = sentence.replace("[TOD]", "..")
+        shaped_sentence = shaped_sentence.replace("[THD]", "...")
         return shaped_sentence
 
     # 文中で変な改行が含まれている時に空白に変換する
@@ -145,3 +166,7 @@ class Trimmer:
     # 文末の改行1個と[SB]の改行2個などで改行が3個以上発生する可能性があるのでその場合は2個に抑え込む
     def _format_two_more_lines(body: str) -> str:
         return re.sub(r'((\n|\r\n){3,})', "\n\n", body)
+
+    @staticmethod
+    def _format_white_space_after_period(body: str) -> str:
+        return re.sub(r'\. ', ".", body)
