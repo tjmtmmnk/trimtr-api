@@ -119,6 +119,13 @@ class TestTrimmer(unittest.TestCase):
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
 
+    # コロンがあって空白無しで文章が連続する場合
+    def test_colon_and_continuing_sentence(self):
+        original_sentence = "This obviously has drawbacks: paper is wasted, manual vote counting takes time and is potentially more error-prone than electronic vote counting.As tempting as electronic voting may seem, it is important to realize the potential risks and drawbacks."
+        expected_sentence = "This obviously has drawbacks:\npaper is wasted, manual vote counting takes time and is potentially more error-prone than electronic vote counting.\nAs tempting as electronic voting may seem, it is important to realize the potential risks and drawbacks."
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
     # 2,3点ドットがそのまま表示される
     def test_dot(self):
         original_sentence1 = "A1,...,A3,..,A4 is array."
