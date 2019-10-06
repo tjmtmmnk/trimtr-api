@@ -72,7 +72,7 @@ class Trimmer:
         flagged_body = cls._create_dot_flag(flagged_body)
 
         # 文章が空白などなしに連続すると文末判定されないので空白を挿入する
-        flagged_body = cls._insert_after_period(flagged_body)
+        flagged_body = cls._insert_white_space_after_period(flagged_body)
         return flagged_body
 
     @classmethod
@@ -108,12 +108,21 @@ class Trimmer:
     @classmethod
     def _format_shaped_body(cls, shaped_body: str) -> str:
         formatted_body = cls._format_two_more_lines(shaped_body)
-        formatted_body = cls._format_white_space_after_period(formatted_body)
         return formatted_body
 
-    @staticmethod
-    def _insert_after_period(body: str) -> str:
-        return re.sub(r'(\D)\.(\D)', r'\1. \2', body)
+    @classmethod
+    def _insert_white_space_after_period(cls, body: str) -> str:
+        inserted_body = body
+
+        both_ends_period_list = re.findall(r'(\D)\.(\D)', body)
+
+        for bep in both_ends_period_list:
+            token = bep[0] + '.' + bep[1]
+            if not cls._is_abbreviation(token):
+                inserted_space_token = bep[0] + '.' + bep[1] if bep[1] == ' ' else bep[0] + '. ' + bep[1]
+                inserted_body = inserted_body.replace(token, inserted_space_token)
+
+        return inserted_body
 
     @staticmethod
     def _create_sentence_block_flag(body: str) -> str:
@@ -174,5 +183,6 @@ class Trimmer:
         return re.sub(r'((\n|\r\n){3,})', "\n\n", body)
 
     @staticmethod
-    def _format_white_space_after_period(body: str) -> str:
-        return re.sub(r'\. ', ".", body)
+    def _is_abbreviation(token: str) -> bool:
+        sent_tokenize = SentenceTokenizer.get_instance()
+        return token in sent_tokenize._params.abbrev_types
