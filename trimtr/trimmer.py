@@ -108,7 +108,6 @@ class Trimmer:
     @classmethod
     def _format_shaped_body(cls, shaped_body: str) -> str:
         formatted_body = cls._format_two_more_lines(shaped_body)
-        # formatted_body = cls._format_white_space_after_period(formatted_body)
         return formatted_body
 
     @classmethod
@@ -182,10 +181,6 @@ class Trimmer:
     # 文末の改行1個と[SB]の改行2個などで改行が3個以上発生する可能性があるのでその場合は2個に抑え込む
     def _format_two_more_lines(body: str) -> str:
         return re.sub(r'((\n|\r\n){3,})', "\n\n", body)
-
-    @staticmethod
-    def _format_white_space_after_period(body: str) -> str:
-        return re.sub(r'\. ', ".", body)
 
     @staticmethod
     def _is_abbreviation(token: str) -> bool:
