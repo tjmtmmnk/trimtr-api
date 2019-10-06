@@ -115,10 +115,16 @@ class Trimmer:
         inserted_body = body
 
         both_ends_period_list = re.findall(r'(\D)\.(\D)', body)
+        exclude_both_ends_period_list = re.findall(r'(\D)\.(\D)\.', body)
+
+        exclude_token_list = list(map(lambda t: t[0] + '.' + t[1], exclude_both_ends_period_list))
 
         for bep in both_ends_period_list:
             token = bep[0] + '.' + bep[1]
-            if not cls._is_abbreviation(token):
+
+            insert_period = not cls._is_abbreviation(token) and not token in exclude_token_list
+
+            if insert_period:
                 inserted_space_token = bep[0] + '.' + bep[1] if bep[1] == ' ' else bep[0] + '. ' + bep[1]
                 inserted_body = inserted_body.replace(token, inserted_space_token)
 

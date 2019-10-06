@@ -133,6 +133,13 @@ class TestTrimmer(unittest.TestCase):
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
 
+    # d.i.y など2個以上のピリオドを含む略語を含んで空白無しで文章が連続する場合
+    def test_test_continuing_sentences_without_white_space_contain_abbrev_more_two(self):
+        original_sentence = "I like d.i.y in Monday."
+        expected_sentence = original_sentence
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
     # 2,3点ドットがそのまま表示される
     def test_dot(self):
         original_sentence1 = "A1,...,A3,..,A4 is array."
