@@ -81,7 +81,7 @@ class TestTrimmer(unittest.TestCase):
     # 人名のピリオドが含まれる場合
     def test_not_break_one_sentence(self):
         original_sentence = "Punkt knows that the periods in Mr.Smith and Johann S.Bach do not mark sentence boundaries."
-        expected_sentence = original_sentence
+        expected_sentence = "Punkt knows that the periods in Mr. Smith and Johann S. Bach do not mark sentence boundaries."
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
 
@@ -123,6 +123,13 @@ class TestTrimmer(unittest.TestCase):
     def test_colon_and_continuing_sentence(self):
         original_sentence = "This obviously has drawbacks: paper is wasted, manual vote counting takes time and is potentially more error-prone than electronic vote counting.As tempting as electronic voting may seem, it is important to realize the potential risks and drawbacks."
         expected_sentence = "This obviously has drawbacks:\npaper is wasted, manual vote counting takes time and is potentially more error-prone than electronic vote counting.\nAs tempting as electronic voting may seem, it is important to realize the potential risks and drawbacks."
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
+
+    # 略語を含んで空白無しで文章が連続する場合
+    def test_test_continuing_sentences_without_white_space_contain_abbrev(self):
+        original_sentence = "A clinical study that lacks a 2.2 comparison (i.e., a control) group.I like it. I am e.g. hoge."
+        expected_sentence = "A clinical study that lacks a 2.2 comparison (i.e., a control) group.\nI like it.\nI am e.g. hoge."
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
 
