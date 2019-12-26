@@ -65,7 +65,7 @@ class TestTrimmer(unittest.TestCase):
         self.assertEqual(expected_sentence, trimmed_sentence)
 
     # コロン+英数字が来たら改行されない
-    def test_colon_not_new_line(self):
+    def test_colon_alphanumeric_character(self):
         original_sentence = "This:is"
         expected_sentence = original_sentence
         trimmed_sentence = self.trimmer.trim(original_sentence)
@@ -127,14 +127,14 @@ class TestTrimmer(unittest.TestCase):
         self.assertEqual(expected_sentence, trimmed_sentence)
 
     # 略語を含んで空白無しで文章が連続する場合
-    def test_test_continuing_sentences_without_white_space_contain_abbrev(self):
+    def test_continuing_sentences_without_white_space_contain_abbrev(self):
         original_sentence = "A clinical study that lacks a 2.2 comparison (i.e., a control) group.I like it. I am e.g. hoge."
         expected_sentence = "A clinical study that lacks a 2.2 comparison (i.e., a control) group.\nI like it.\nI am e.g. hoge."
         trimmed_sentence = self.trimmer.trim(original_sentence)
         self.assertEqual(expected_sentence, trimmed_sentence)
 
     # d.i.y など2個以上のピリオドを含む略語を含んで空白無しで文章が連続する場合
-    def test_test_continuing_sentences_without_white_space_contain_abbrev_more_two(self):
+    def test_continuing_sentences_without_white_space_contain_abbrev_more_two(self):
         original_sentence = "I like d.i.y in Monday."
         expected_sentence = original_sentence
         trimmed_sentence = self.trimmer.trim(original_sentence)
@@ -152,6 +152,13 @@ class TestTrimmer(unittest.TestCase):
 
         trimmed_sentence2 = self.trimmer.trim(original_sentence2)
         self.assertEqual(expected_sentence2, trimmed_sentence2)
+
+    # SBが含まれる時にちゃんと改行される
+    def test_sentences_contain_sentence_block(self):
+        original_sentence = "Hello.\n\nHow are you? I am fine."
+        expected_sentence = "Hello.\n\nHow are you?\nI am fine."
+        trimmed_sentence = self.trimmer.trim(original_sentence)
+        self.assertEqual(expected_sentence, trimmed_sentence)
 
 
 if __name__ == "__main__":

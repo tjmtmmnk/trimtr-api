@@ -4,8 +4,6 @@ from nltk.tokenize.punkt import PunktSentenceTokenizer
 from trimtr.util import get_abbrev_types_from_file, get_abs_path
 
 
-# マルチスレッドにするならスレッドセーフにするためのロック処理が必要そう
-# いまはgunicornでマルチプロセスでメモリを共有していないので考えなくて良さそう？
 class SentenceTokenizer:
     _unique_instance = None
 
@@ -30,7 +28,6 @@ class SentenceTokenizer:
         return cls._unique_instance
 
 
-# Trimmerは状態を持たないのでシングルトンにしても問題ないはず
 class Trimmer:
     _unique_instance = None
 
@@ -100,7 +97,7 @@ class Trimmer:
         if is_flag_eos:
             shaped_sentence = shaped_sentence.replace("[EOS]", "")
 
-        if not is_flag_sb and not is_flag_eos:
+        if not is_flag_eos:
             shaped_sentence = shaped_sentence + "\n"
 
         return shaped_sentence
@@ -153,8 +150,7 @@ class Trimmer:
         shaped_sentence = sentence
 
         # 先頭の空白は消す
-        if re.match(r'^(\[WS\]| +)', sentence):
-            shaped_sentence = re.sub(r'^(\[WS\]| +)', '', sentence)
+        shaped_sentence = re.sub(r'^(\[WS\]| +)', '', sentence)
 
         shaped_sentence = shaped_sentence.replace("[WS]", " ")
 
