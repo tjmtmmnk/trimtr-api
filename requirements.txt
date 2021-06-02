@@ -23,7 +23,7 @@ regex==2019.8.19
 requests==2.22.0
 scout-apm==2.4.1
 six==1.12.0
-urllib3==1.25.3
+urllib3==1.26.5
 wcwidth==0.1.7
 Werkzeug==0.15.6
 zipp==0.6.0
